@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificates — EduVerse</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .certs-page { padding: calc(var(--navbar-height) + 50px) 5% 80px; max-width: 1200px; margin: 0 auto; }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px,1fr)); gap: 28px; }
+    .cert-card {
+      background: var(--bg-card); border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg); overflow: hidden;
+      transition: var(--transition-bounce); position: relative;
+    }
+    .cert-card:hover { transform: translateY(-8px); border-color: rgba(245,158,11,0.4); box-shadow: 0 12px 40px rgba(245,158,11,0.15); }
+    .cert-preview {
+      width: 100%; height: 220px;
+      background: linear-gradient(135deg, #1a0a3e, #0c1a3e);
+      position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .cert-bg-lines { position: absolute; inset: 0; opacity: 0.1; }
+    .cert-inner {
+      width: 88%; border: 2px solid rgba(245,158,11,0.5);
+      border-radius: 10px; padding: 18px 22px;
+      position: relative; z-index: 2;
+      background: rgba(255,255,255,0.03);
+    }
+    .cert-logo-sm { font-size: 1rem; font-weight: 800; color: #f59e0b; margin-bottom: 4px; }
+    .cert-title-sm { font-size: 0.65rem; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .cert-name { font-size: 1.3rem; font-weight: 800; color: white; margin-bottom: 4px; font-style: italic; }
+    .cert-course-sm { font-size: 0.7rem; color: rgba(255,255,255,0.6); margin-bottom: 10px; }
+    .cert-divider { height: 1px; background: rgba(245,158,11,0.3); margin-bottom: 10px; }
+    .cert-sig { display: flex; justify-content: space-between; align-items: flex-end; }
+    .cert-sig-line { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-align: center; }
+    .cert-sig-value { font-size: 0.75rem; font-style: italic; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(245,158,11,0.4); padding-bottom: 2px; }
+    .cert-star-badge { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; background: linear-gradient(135deg,#f59e0b,#ef4444); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; box-shadow: 0 0 16px rgba(245,158,11,0.5); z-index: 3; }
+    .cert-body { padding: 20px 22px; }
+    .cert-course-name { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .cert-meta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; font-size: 0.78rem; color: var(--text-secondary); }
+    .cert-verify { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #22c55e; font-weight: 600; background: rgba(34,197,94,0.1); padding: 3px 10px; border-radius: 100px; border: 1px solid rgba(34,197,94,0.3); margin-bottom: 16px; }
+    .cert-actions { display: flex; gap: 10px; }
+    .btn-cert { flex: 1; padding: 10px; border-radius: var(--border-radius-sm); font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: var(--font-main); transition: var(--transition-bounce); }
+    .btn-cert-primary { background: var(--gradient-main); color: white; border: none; }
+    .btn-cert-primary:hover { transform: scale(1.03); box-shadow: var(--shadow-neon); }
+    .btn-cert-ghost { background: transparent; border: 1px solid var(--glass-border); color: var(--text-primary); }
+    .btn-cert-ghost:hover { border-color: var(--primary); color: var(--primary-light); }
+
+    /* Modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: var(--bg-dark); border: 1px solid var(--glass-border); border-radius: var(--border-radius-lg); max-width: 700px; width: 100%; padding: 36px; position: relative; animation: scaleIn 0.3s ease; }
+    .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: var(--glass); border: 1px solid var(--glass-border); cursor: pointer; font-size: 1rem; color: var(--text-primary); display: flex; align-items: center; justify-content: center; }
+    .modal-cert {
+      width: 100%; background: linear-gradient(135deg,#1a0a3e,#0c1a3e);
+      border: 3px solid rgba(245,158,11,0.5); border-radius: 14px;
+      padding: 40px; text-align: center; position: relative; overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .modal-cert-corner { position: absolute; font-size: 2rem; opacity: 0.15; }
+    .modal-cert-corner.tl { top: 10px; left: 14px; }
+    .modal-cert-corner.tr { top: 10px; right: 14px; }
+    .modal-cert-corner.bl { bottom: 10px; left: 14px; }
+    .modal-cert-corner.br { bottom: 10px; right: 14px; }
+    .modal-cert-logo { font-size: 1.3rem; font-weight: 900; color: #f59e0b; margin-bottom: 4px; }
+    .modal-cert-sub { font-size: 0.7rem; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 24px; }
+    .modal-cert-presents { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .modal-cert-name { font-size: 2.4rem; font-weight: 900; font-style: italic; color: white; margin-bottom: 8px; }
+    .modal-cert-for { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .modal-cert-course { font-size: 1.2rem; font-weight: 700; color: #f59e0b; margin-bottom: 24px; }
+    .modal-cert-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(245,158,11,0.5), transparent); margin: 0 auto 24px; width: 60%; }
+    .modal-cert-sigs { display: flex; justify-content: space-around; }
+    .modal-cert-sig-block { text-align: center; }
+    .modal-cert-sig-name { font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(245,158,11,0.3); padding-bottom: 6px; margin-bottom: 4px; }
+    .modal-cert-sig-role { font-size: 0.65rem; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+    .modal-actions { display: flex; gap: 12px; justify-content: center; }
+
+    /* Confetti container */
+    #confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo"><span class="gradient-text">EduVerse</span> 🚀</div><div class="loader-bar"><div class="loader-progress"></div></div></div>
+<div id="cursor-spotlight"></div>
+<div id="confetti-container"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><span>🚀</span><span class="logo-text">EduVerse</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="courses.html">Courses</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle">☀️</button>
+    <a href="dashboard.html"><button class="btn-primary">My Dashboard</button></a>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu"><a href="index.html">🏠 Home</a><a href="courses.html">📚 Courses</a><a href="dashboard.html">📊 Dashboard</a></div>
+
+<div class="certs-page">
+  <div class="section-header reveal" style="text-align:left;margin-bottom:40px;">
+    <span class="section-tag">My Achievements</span>
+    <h1 class="section-title">Your <span class="gradient-text">Certificates</span></h1>
+    <p style="color:var(--text-secondary);">Share your achievements with the world. Each certificate has a unique verification ID.</p>
+  </div>
+
+  <div class="cert-grid" id="cert-grid"></div>
+</div>
+
+<!-- Certificate Modal -->
+<div class="modal-overlay" id="cert-modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-cert" id="modal-cert-content"></div>
+    <div class="modal-actions">
+      <button class="btn-hero-primary" onclick="downloadCert()">⬇ Download Certificate</button>
+      <button class="btn-hero-secondary" onclick="showToast('🔗 Link copied to clipboard!')">🔗 Share Link</button>
+      <button class="btn-hero-secondary" onclick="showToast('💼 Added to LinkedIn!')">💼 LinkedIn</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom" style="max-width:1300px;margin:0 auto;padding:30px 0 0;">
+    <span>© 2024 EduVerse. All rights reserved.</span>
+  </div>
+</footer>
+<button id="back-to-top">↑</button>
+<button class="ai-chat-toggle">🤖</button>
+<div class="ai-chat-box"><div class="chat-header"><span>🤖</span><h4>EduVerse AI</h4><button class="chat-close">✕</button></div><div class="chat-messages"><div class="chat-msg bot">🎓 Congratulations on your certificates! How can I help?</div></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask me anything..." /><button class="chat-send">→</button></div></div>
+
+<script src="js/main.js"></script>
+<script>
+const CERTIFICATES = [
+  { id:'EV-2024-001', courseId:6, date:'Dec 10, 2024', grade:'A+', hours:28 },
+  { id:'EV-2024-002', courseId:8, date:'Nov 22, 2024', grade:'A', hours:32 },
+  { id:'EV-2024-003', courseId:5, date:'Oct 15, 2024', grade:'A+', hours:40 },
+];
+
+function renderCerts() {
+  const grid = document.getElementById('cert-grid');
+  if (!grid) return;
+  grid.innerHTML = CERTIFICATES.map((cert, i) => {
+    const course = COURSES.find(c => c.id === cert.courseId) || COURSES[0];
+    return `
+      <div class="cert-card reveal reveal-delay-${i+1}">
+        <div class="cert-preview">
+          <div class="cert-star-badge">🏆</div>
+          <div class="cert-inner">
+            <div class="cert-logo-sm">🚀 EduVerse</div>
+            <div class="cert-title-sm">Certificate of Completion</div>
+            <div class="cert-name">Rohan Mathew</div>
+            <div class="cert-course-sm">${course.title}</div>
+            <div class="cert-divider"></div>
+            <div class="cert-sig">
+              <div class="cert-sig-line"><div class="cert-sig-value">Dr. Rajesh Kumar</div><div>Instructor</div></div>
+              <div class="cert-sig-line"><div class="cert-sig-value">${cert.date}</div><div>Date</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cert-body">
+          <div class="cert-course-name">${course.title}</div>
+          <div class="cert-meta">
+            <span>📅 ${cert.date}</span>
+            <span>⏱ ${cert.hours}h</span>
+            <span>📊 Grade: ${cert.grade}</span>
+          </div>
+          <div class="cert-verify">✅ Verified — ID: ${cert.id}</div>
+          <div class="cert-actions">
+            <button class="btn-cert btn-cert-primary" onclick="openModal(${cert.courseId},'${cert.id}','${cert.date}','${cert.grade}')">👁 Preview</button>
+            <button class="btn-cert btn-cert-ghost" onclick="downloadCert()">⬇ Download</button>
+            <button class="btn-cert btn-cert-ghost" onclick="showToast('🔗 Link copied!')">🔗 Share</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function openModal(courseId, certId, date, grade) {
+  const course = COURSES.find(c => c.id === courseId) || COURSES[0];
+  const content = document.getElementById('modal-cert-content');
+  content.innerHTML = `
+    <div class="modal-cert-corner tl">✦</div>
+    <div class="modal-cert-corner tr">✦</div>
+    <div class="modal-cert-corner bl">✦</div>
+    <div class="modal-cert-corner br">✦</div>
+    <div class="modal-cert-logo">🚀 EduVerse</div>
+    <div class="modal-cert-sub">Certificate of Completion</div>
+    <div class="modal-cert-presents">This is to certify that</div>
+    <div class="modal-cert-name">Rohan Mathew</div>
+    <div class="modal-cert-for">has successfully completed the course</div>
+    <div class="modal-cert-course">${course.title}</div>
+    <div class="modal-cert-divider"></div>
+    <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-bottom:20px;">Verification ID: ${certId} | Issued: ${date} | Grade: ${grade}</div>
+    <div class="modal-cert-sigs">
+      <div class="modal-cert-sig-block"><div class="modal-cert-sig-name">${course.instructor}</div><div class="modal-cert-sig-role">Course Instructor</div></div>
+      <div class="modal-cert-sig-block"><div class="modal-cert-sig-name">Dr. Anita Sharma</div><div class="modal-cert-sig-role">CEO, EduVerse</div></div>
+    </div>`;
+  document.getElementById('cert-modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('cert-modal').classList.remove('open'); }
+
+function downloadCert() {
+  closeModal();
+  launchConfetti();
+  showToast('🎉 Certificate downloaded successfully!');
+}
+
+function launchConfetti() {
+  const container = document.getElementById('confetti-container');
+  const colors = ['#7c3aed','#06b6d4','#ec4899','#f59e0b','#22c55e','#fff'];
+  for (let i = 0; i < 80; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.cssText = `
+      left:${Math.random()*100}vw;
+      top:${-Math.random()*200}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${6+Math.random()*8}px;
+      height:${6+Math.random()*8}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${2+Math.random()*2}s;
+      animation-delay:${Math.random()*0.8}s;
+    `;
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 4000);
+  }
+}
+
+// Close modal on overlay click
+document.getElementById('cert-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+document.addEventListener('DOMContentLoaded', renderCerts);
+</script>
+</body>
+</html>

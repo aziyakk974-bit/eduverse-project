@@ -1,0 +1,85 @@
+/* =============================================
+   EDUVERSE — RESPONSIVE STYLESHEET
+   ============================================= */
+
+/* ─── LARGE SCREENS (1440px+) ─── */
+@media (min-width: 1440px) {
+  .hero-grid { gap: 80px; }
+  .section { padding: 110px 8%; }
+}
+
+/* ─── TABLET LANDSCAPE (1024px) ─── */
+@media (max-width: 1100px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); gap: 30px; }
+}
+
+/* ─── TABLET (768-1024px) ─── */
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-grid { grid-template-columns: 1fr; gap: 50px; text-align: center; }
+  .hero-subtitle { margin: 0 auto 40px; }
+  .hero-cta { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { justify-content: center; }
+  .hero-card-stack { max-width: 420px; }
+  .testimonial-card { min-width: calc(100% - 24px); }
+  .dashboard-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .sidebar.open { display: flex; position: fixed; z-index: 900; height: 100vh; }
+}
+
+/* ─── MOBILE (max 768px) ─── */
+@media (max-width: 768px) {
+  :root { --navbar-height: 64px; }
+  .section { padding: 60px 4%; }
+  .hero { padding: calc(var(--navbar-height) + 40px) 4% 60px; }
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  .categories-grid { grid-template-columns: repeat(2,1fr); }
+  .courses-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+  .instructors-grid { grid-template-columns: repeat(2,1fr); }
+  .steps-grid { grid-template-columns: 1fr; }
+  .testimonial-card { min-width: calc(100% - 24px); }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .newsletter-form { flex-direction: column; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .hero-stats { gap: 20px; }
+  .floating-badge { display: none; }
+  .course-filter-bar { flex-direction: column; gap: 12px; }
+  .dashboard-cards { grid-template-columns: 1fr; }
+  .ai-chat-box { width: calc(100vw - 40px); right: 20px; }
+  #back-to-top { bottom: 20px; right: 20px; }
+  .ai-chat-toggle { bottom: 80px; right: 20px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .pricing-toggle { flex-wrap: wrap; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: repeat(2,1fr); }
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── SMALL MOBILE (max 480px) ─── */
+@media (max-width: 480px) {
+  .hero-title { font-size: 1.9rem; }
+  .categories-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .category-card { padding: 20px 14px; }
+  .instructors-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .hero-stat-item .stat-num { font-size: 1.5rem; }
+  .course-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+
+/* ─── DASHBOARD SPECIFIC ─── */
+@media (max-width: 1024px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── COURSES PAGE FILTER ─── */
+@media (max-width: 640px) {
+  .filter-chips { flex-wrap: wrap; }
+  .sort-row { flex-direction: column; gap: 8px; }
+  .courses-page-grid { grid-template-columns: 1fr; }
+}

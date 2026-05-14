@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — EduVerse</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .about-page { padding: calc(var(--navbar-height) + 60px) 5% 80px; max-width: 1200px; margin: 0 auto; }
+    .about-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 90px; }
+    @media(max-width:768px){ .about-hero { grid-template-columns:1fr; text-align:center; } }
+    .about-hero-img {
+      width: 100%; aspect-ratio: 1;
+      background: var(--gradient-card);
+      border: 1px solid var(--glass-border); border-radius: var(--border-radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8rem; position: relative; overflow: hidden;
+    }
+    .about-hero-img .morph-shape { opacity: 0.15; }
+    .about-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; margin-bottom: 90px; }
+    @media(max-width:768px){ .about-stats { grid-template-columns:1fr 1fr; } }
+    .about-stat-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 28px 20px; text-align: center; transition: var(--transition-bounce); }
+    .about-stat-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: var(--shadow-glow); }
+    .about-stat-num { font-size: 2.5rem; font-weight: 900; display: block; margin-bottom: 4px; }
+    .about-stat-label { font-size: 0.85rem; color: var(--text-secondary); }
+
+    /* Mission + Values */
+    .mission-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 90px; }
+    @media(max-width:768px){ .mission-section { grid-template-columns:1fr; } }
+    .mission-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 36px; }
+    .mission-icon { font-size: 2.5rem; margin-bottom: 16px; display: block; }
+    .values-list { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .value-item { display: flex; gap: 12px; align-items: flex-start; }
+    .value-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gradient-main); flex-shrink: 0; margin-top: 6px; }
+
+    /* Team */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 24px; margin-bottom: 90px; }
+    .team-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 32px 24px; text-align: center; transition: var(--transition-bounce); }
+    .team-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: var(--shadow-glow); }
+    .team-avatar { width: 90px; height: 90px; border-radius: 50%; background: var(--gradient-main); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border: 3px solid var(--glass-border); }
+    .team-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+    .team-role { font-size: 0.8rem; color: var(--primary-light); margin-bottom: 10px; }
+    .team-bio { font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; }
+    .team-socials { display: flex; gap: 8px; justify-content: center; }
+    .team-social { width: 32px; height: 32px; border-radius: 8px; background: var(--glass); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: var(--transition); }
+    .team-social:hover { background: var(--primary); border-color: var(--primary); }
+
+    /* Timeline */
+    .about-timeline { margin-bottom: 90px; }
+    .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media(max-width:768px){ .timeline-grid { grid-template-columns:1fr; } }
+    .tl-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: var(--border-radius); padding: 28px; border-left: 4px solid var(--primary); transition: var(--transition-bounce); }
+    .tl-card:hover { transform: translateX(6px); border-left-color: var(--secondary); }
+    .tl-year { font-size: 0.78rem; font-weight: 700; color: var(--primary-light); margin-bottom: 6px; }
+    .tl-title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .tl-desc { font-size: 0.85rem; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo"><span class="gradient-text">EduVerse</span> 🚀</div><div class="loader-bar"><div class="loader-progress"></div></div></div>
+<div id="cursor-spotlight"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><span>🚀</span><span class="logo-text">EduVerse</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="courses.html">Courses</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="about.html" class="active">About</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle">☀️</button>
+    <a href="dashboard.html"><button class="btn-primary">My Dashboard</button></a>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu"><a href="index.html">🏠 Home</a><a href="courses.html">📚 Courses</a><a href="dashboard.html">📊 Dashboard</a><a href="about.html">ℹ️ About</a><a href="contact.html">📬 Contact</a></div>
+
+<div class="about-page">
+
+  <!-- Hero -->
+  <div class="about-hero">
+    <div class="reveal">
+      <span class="section-tag">Our Story</span>
+      <h1 class="section-title" style="margin-bottom:16px;">Empowering the Next<br/><span class="gradient-text">Generation of Builders</span></h1>
+      <p style="font-size:1rem;color:var(--text-secondary);margin-bottom:24px;">EduVerse was born in 2022 from a simple belief — quality tech education should be accessible to every student in India, regardless of their college or city. We started with 10 courses and 200 students. Today, we're 50,000+ learners strong.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <button class="btn-hero-primary" onclick="window.location.href='courses.html'">Explore Courses</button>
+        <button class="btn-hero-secondary" onclick="window.location.href='contact.html'">Contact Us</button>
+      </div>
+    </div>
+    <div class="about-hero-img reveal reveal-delay-2">
+      <div class="morph-bg"><div class="morph-shape morph-shape-1" style="animation:morphShape 8s ease-in-out infinite;"></div></div>
+      <span style="position:relative;z-index:2;">🚀</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="about-stats">
+    <div class="about-stat-card reveal"><span class="about-stat-num gradient-text" data-target="50000" data-suffix="+">50,000+</span><div class="about-stat-label">Students Enrolled</div></div>
+    <div class="about-stat-card reveal reveal-delay-2"><span class="about-stat-num gradient-text" data-target="2000" data-suffix="+">2,000+</span><div class="about-stat-label">Courses Available</div></div>
+    <div class="about-stat-card reveal reveal-delay-3"><span class="about-stat-num gradient-text" data-target="500" data-suffix="+">500+</span><div class="about-stat-label">Expert Instructors</div></div>
+    <div class="about-stat-card reveal reveal-delay-4"><span class="about-stat-num gradient-text" data-target="95" data-suffix="%">95%</span><div class="about-stat-label">Placement Rate</div></div>
+  </div>
+
+  <!-- Mission + Values -->
+  <div class="section-header reveal" style="text-align:left;margin-bottom:40px;">
+    <span class="section-tag">What We Believe</span>
+    <h2 class="section-title">Our <span class="gradient-text">Mission & Values</span></h2>
+  </div>
+  <div class="mission-section">
+    <div class="mission-card reveal">
+      <span class="mission-icon">🎯</span>
+      <h3>Our Mission</h3>
+      <p style="color:var(--text-secondary);margin-top:10px;font-size:0.92rem;line-height:1.8;">To make world-class technology education accessible, affordable, and outcome-focused for every student in India. We believe that where you study shouldn't determine where you work.</p>
+      <p style="color:var(--text-secondary);margin-top:10px;font-size:0.92rem;line-height:1.8;">Every course we build is designed with one goal in mind — to help you get a job, build a product, or level up your skills in the real world.</p>
+    </div>
+    <div class="mission-card reveal reveal-delay-2">
+      <span class="mission-icon">💡</span>
+      <h3>Our Core Values</h3>
+      <ul class="values-list">
+        <li class="value-item"><div class="value-dot"></div><div><strong>Quality First</strong> — Every course undergoes rigorous review. We'd rather have 10 excellent courses than 100 mediocre ones.</div></li>
+        <li class="value-item"><div class="value-dot"></div><div><strong>Learner Obsessed</strong> — Every feature, every update, every decision starts with one question: does this help our learners?</div></li>
+        <li class="value-item"><div class="value-dot"></div><div><strong>Outcome Driven</strong> — We measure success by your success — placements, promotions, and projects shipped.</div></li>
+        <li class="value-item"><div class="value-dot"></div><div><strong>Radical Transparency</strong> — Honest reviews, real ratings, no fake testimonials. What you see is what you get.</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="section-header reveal" style="margin-bottom:40px;">
+    <span class="section-tag">The People Behind EduVerse</span>
+    <h2 class="section-title">Meet Our <span class="gradient-text">Team</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-avatar">👨‍💼</div>
+      <div class="team-name">Vikram Menon</div>
+      <div class="team-role">CEO & Co-Founder</div>
+      <div class="team-bio">Ex-Google engineer with 12 years in EdTech. IIT Bombay alumnus passionate about accessible education.</div>
+      <div class="team-socials"><a href="#" class="team-social">💼</a><a href="#" class="team-social">🐦</a><a href="#" class="team-social">🐙</a></div>
+    </div>
+    <div class="team-card reveal reveal-delay-2">
+      <div class="team-avatar">👩‍💼</div>
+      <div class="team-name">Priya Subramaniam</div>
+      <div class="team-role">CTO & Co-Founder</div>
+      <div class="team-bio">Former Amazon SDE-III. Built scalable systems serving millions. IIT Madras, M.Tech Computer Science.</div>
+      <div class="team-socials"><a href="#" class="team-social">💼</a><a href="#" class="team-social">🐦</a><a href="#" class="team-social">🐙</a></div>
+    </div>
+    <div class="team-card reveal reveal-delay-3">
+      <div class="team-avatar">👨‍🎨</div>
+      <div class="team-name">Arjun Krishnan</div>
+      <div class="team-role">Head of Design</div>
+      <div class="team-bio">10 years in product design. Previously at Swiggy and Razorpay. Obsessed with learning experiences.</div>
+      <div class="team-socials"><a href="#" class="team-social">💼</a><a href="#" class="team-social">🐦</a><a href="#" class="team-social">🎨</a></div>
+    </div>
+    <div class="team-card reveal reveal-delay-4">
+      <div class="team-avatar">👩‍🔬</div>
+      <div class="team-name">Meera Nair</div>
+      <div class="team-role">Head of Curriculum</div>
+      <div class="team-bio">PhD in Computer Science from IISc. Designed curriculum for 400+ courses and 50,000+ learners.</div>
+      <div class="team-socials"><a href="#" class="team-social">💼</a><a href="#" class="team-social">🐦</a><a href="#" class="team-social">📖</a></div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section-header reveal" style="margin-bottom:40px;">
+    <span class="section-tag">Our Journey</span>
+    <h2 class="section-title">EduVerse <span class="gradient-text">Timeline</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="about-timeline">
+    <div class="timeline-grid">
+      <div class="tl-card reveal"><div class="tl-year">🗓 January 2022</div><div class="tl-title">EduVerse Founded</div><div class="tl-desc">Started with 10 Java and Web Development courses, 200 early adopters, and a mission to democratize tech education.</div></div>
+      <div class="tl-card reveal reveal-delay-2"><div class="tl-year">🗓 June 2022</div><div class="tl-title">10,000 Students Milestone</div><div class="tl-desc">Crossed 10,000 enrolled students and launched our first live Q&A sessions with instructors. Raised seed funding of ₹2 Cr.</div></div>
+      <div class="tl-card reveal reveal-delay-3"><div class="tl-year">🗓 January 2023</div><div class="tl-title">Launched Mobile App</div><div class="tl-desc">Released iOS and Android apps with offline downloads. Added 200+ courses in ML, AI, DevOps, and Cloud Computing.</div></div>
+      <div class="tl-card reveal reveal-delay-4"><div class="tl-year">🗓 June 2023</div><div class="tl-title">Series A — ₹15 Cr Raised</div><div class="tl-desc">Secured ₹15 Crore Series A funding. Expanded to 500+ courses and launched premium placement support for learners.</div></div>
+      <div class="tl-card reveal"><div class="tl-year">🗓 January 2024</div><div class="tl-title">50,000 Students & 500+ Instructors</div><div class="tl-desc">Crossed 50,000 active learners. Onboarded 500+ industry expert instructors and launched AI-powered learning paths.</div></div>
+      <div class="tl-card reveal reveal-delay-2"><div class="tl-year">🗓 2025 — Upcoming</div><div class="tl-title">EduVerse 2.0</div><div class="tl-desc">Launching AI-personalised learning, real-time code playgrounds, 1-on-1 mentorship marketplace, and EduVerse Certifications.</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="reveal" style="text-align:center;padding:60px 20px;background:var(--gradient-card);border-radius:var(--border-radius-lg);border:1px solid var(--glass-border);">
+    <h2 style="margin-bottom:12px;">Ready to <span class="gradient-text">Start Learning?</span></h2>
+    <p style="color:var(--text-secondary);margin-bottom:28px;">Join 50,000+ students building their tech careers with EduVerse.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-hero-primary" onclick="window.location.href='courses.html'">🚀 Browse Courses</button>
+      <button class="btn-hero-secondary" onclick="window.location.href='pricing.html'">💎 View Pricing</button>
+    </div>
+  </div>
+</div>
+
+<footer style="margin-top:80px;">
+  <div class="footer-bottom" style="max-width:1300px;margin:0 auto;padding:30px 0 0;">
+    <span>© 2024 EduVerse. All rights reserved.</span>
+    <span>Made with ❤️ for learners worldwide</span>
+  </div>
+</footer>
+<button id="back-to-top">↑</button>
+<button class="ai-chat-toggle">🤖</button>
+<div class="ai-chat-box"><div class="chat-header"><span>🤖</span><h4>EduVerse AI</h4><button class="chat-close">✕</button></div><div class="chat-messages"><div class="chat-msg bot">👋 Want to know more about EduVerse? I'm happy to help!</div></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask me anything..." /><button class="chat-send">→</button></div></div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

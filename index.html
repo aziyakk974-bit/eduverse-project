@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduVerse — Learn Anything, Anytime, Anywhere</title>
+  <meta name="description" content="EduVerse is a premium online learning platform with 2000+ courses in programming, AI, design, and more." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+</head>
+<body>
+
+<!-- ─── LOADER ─── -->
+<div id="loader">
+  <div class="loader-logo"><span class="gradient-text">EduVerse</span> 🚀</div>
+  <div class="loader-bar"><div class="loader-progress"></div></div>
+  <p style="color:var(--text-muted);font-size:0.85rem;">Preparing your learning journey...</p>
+</div>
+
+<!-- ─── CURSOR SPOTLIGHT ─── -->
+<div id="cursor-spotlight"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="nav-logo" aria-label="EduVerse Home">
+    <span>🚀</span><span class="logo-text">EduVerse</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="courses.html">Courses</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle" aria-label="Toggle dark/light mode">☀️</button>
+    <a href="courses.html"><button class="btn-ghost">Browse Courses</button></a>
+    <a href="dashboard.html"><button class="btn-primary">My Dashboard</button></a>
+    <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu">
+  <a href="index.html">🏠 Home</a>
+  <a href="courses.html">📚 Courses</a>
+  <a href="dashboard.html">📊 Dashboard</a>
+  <a href="pricing.html">💎 Pricing</a>
+  <a href="about.html">ℹ️ About</a>
+  <a href="contact.html">📬 Contact</a>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero" aria-label="Hero section">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="floating-icons">
+      
+      <div class="floating-icon fi-2">⚛️</div>
+      <div class="floating-icon fi-3">🤖</div>
+      <div class="floating-icon fi-4">🎨</div>
+      <div class="floating-icon fi-5">☁️</div>
+      <div class="floating-icon fi-6">🔐</div>
+      <div class="floating-icon fi-7">📱</div>
+      <div class="floating-icon fi-8">🐳</div>
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        🔥 India's #1 Tech Learning Platform
+      </div>
+      <h1 class="hero-title">
+        <span id="typed-text">Master New Skills</span><br/>
+        <span>with </span><span class="gradient-text">EduVerse</span>
+      </h1>
+      <p class="hero-subtitle">
+        Explore 2,000+ expert-led courses in programming, AI, design, and development. Learn from India's best instructors and get industry-recognized certificates.
+      </p>
+      <div class="hero-cta">
+        <button class="btn-hero-primary" onclick="window.location.href='courses.html'">
+          🚀 Start Learning Free
+        </button>
+        <button class="btn-hero-secondary" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+          <span>▶</span> How It Works
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <span class="stat-num">50K+</span>
+          <span class="stat-label">Students</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="stat-num">2K+</span>
+          <span class="stat-label">Courses</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Instructors</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="stat-num">4.9⭐</span>
+          <span class="stat-label">Avg Rating</span>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+      <div class="hero-main-card tilt-card">
+
+  <div class="image">
+    
+  </div>
+
+  <div class="hero-course-thumb">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1rNrp7HfDG-QahCNeuGFAkRToEKc93wU1kA&s">
+  </div>
+
+  <div class="hero-course-content">
+
+    <h2>AI & Machine Learning</h2>
+
+    <p>
+      Master Artificial Intelligence, Deep Learning,
+      Neural Networks, and real-world ML projects
+      with industry-level guidance.
+    </p>
+
+    <div class="course-buttons">
+      <span>🤖 AI</span>
+      <span>🧠 Machine Learning</span>
+      <span>🐍 Python</span>
+    </div>
+
+  </div>
+
+</div>  
+         
+          
+        </div>
+        <div class="floating-badge badge-1">🏆 Bestseller Course</div>
+        <div class="floating-badge badge-2">🎓 Certificate Included</div>
+        <div class="floating-badge badge-3">⚡ Live Sessions</div>
+        <div class="floating-badge badge-4">#Trending</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SEARCH ─── -->
+<section class="search-section" aria-label="Course search">
+  <div class="search-container">
+    <div class="search-bar">
+      <span style="font-size:1.2rem;margin-right:4px;">🔍</span>
+      <input type="text" placeholder="Search for courses, skills, or instructors..." aria-label="Search courses" />
+      <button class="search-btn">Search</button>
+    </div>
+    <p style="text-align:center;margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
+      Popular: <a href="courses.html?q=java" style="color:var(--primary-light)">Java</a> · 
+      <a href="courses.html?q=react" style="color:var(--primary-light)">React</a> · 
+      <a href="courses.html?q=machine+learning" style="color:var(--primary-light)">Machine Learning</a> · 
+      <a href="courses.html?q=aws" style="color:var(--primary-light)">AWS</a>
+    </p>
+  </div>
+</section>
+
+
+<!-- ─── FEATURED COURSES ─── -->
+
+
+<!-- ─── STATISTICS ─── -->
+<section class="stats-section" aria-label="Platform statistics">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <span class="stat-icon">👥</span>
+      <span class="stat-number gradient-text" data-target="50000" data-suffix="+">0</span>
+      <span class="stat-label">Active Students</span>
+    </div>
+    <div class="stat-card reveal reveal-delay-2">
+      <span class="stat-icon">📚</span>
+      <span class="stat-number gradient-text" data-target="2000" data-suffix="+">0</span>
+      <span class="stat-label">Premium Courses</span>
+    </div>
+    <div class="stat-card reveal reveal-delay-3">
+      <span class="stat-icon">👨‍🏫</span>
+      <span class="stat-number gradient-text" data-target="500" data-suffix="+">0</span>
+      <span class="stat-label">Expert Instructors</span>
+    </div>
+    <div class="stat-card reveal reveal-delay-4">
+      <span class="stat-icon">🏆</span>
+      <span class="stat-number gradient-text" data-target="98" data-suffix="%">0</span>
+      <span class="stat-label">Satisfaction Rate</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TOP INSTRUCTORS ─── -->
+
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="section" id="how-it-works" aria-label="How EduVerse works">
+  <div class="section-header reveal">
+    <span class="section-tag">Getting Started</span>
+    <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+    <p class="section-sub">Start your learning journey in just 3 simple steps</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-number">1</div>
+      <div class="step-icon">🔍</div>
+      <div class="step-title">Browse & Choose</div>
+      <p class="step-desc">Explore 2,000+ courses across 20+ categories. Filter by skill level, price, and rating to find the perfect course for you.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-2">
+      <div class="step-number">2</div>
+      <div class="step-icon">📖</div>
+      <div class="step-title">Enroll & Learn</div>
+      <p class="step-desc">Watch HD video lectures, complete hands-on projects, and get your doubts cleared by expert instructors in live sessions.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-3">
+      <div class="step-number">3</div>
+      <div class="step-icon">🏆</div>
+      <div class="step-title">Earn & Grow</div>
+      <p class="step-desc">Complete the course, pass the final assessment, and earn your industry-recognized certificate to showcase to employers.</p>
+    </div>
+    <div class="step-card reveal reveal-delay-4">
+      <div class="step-number">4</div>
+      <div class="step-icon">🚀</div>
+      <div class="step-title">Land Your Dream Job</div>
+      <p class="step-desc">Get placement support, resume reviews, and mock interviews. Join 50,000+ alumni who landed their dream tech jobs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="section" aria-label="Student testimonials">
+  <div class="section-header reveal">
+    <span class="section-tag">Success Stories</span>
+    <h2 class="section-title">What Our <span class="gradient-text">Students Say</span></h2>
+    <p class="section-sub">Real stories from real learners who transformed their careers</p>
+    <div class="section-divider"></div>
+  </div>
+  <div class="testimonials-wrapper">
+    <div class="testimonials-track" id="testimonials-track"></div>
+    
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section class="section" aria-label="Frequently asked questions">
+  <div class="section-header reveal">
+    <span class="section-tag">Got Questions?</span>
+    <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="faq-wrapper" id="faq-wrapper"></div>
+</section>
+
+<!-- ─── NEWSLETTER ─── -->
+<section class="newsletter-section" aria-label="Newsletter signup">
+  <div class="newsletter-box reveal">
+    <span class="section-tag">Stay Updated</span>
+    <h2>Never Miss a <span class="gradient-text">New Course</span></h2>
+    <p>Get weekly updates on new courses, special offers, and learning tips straight to your inbox.</p>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input class="newsletter-input" type="email" placeholder="Enter your email address..." aria-label="Email for newsletter" />
+      <button class="btn-primary" type="submit">Subscribe 🚀</button>
+    </form>
+    <p style="font-size:0.75rem;color:var(--text-muted);margin-top:12px;">🔒 No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo"><span>🚀</span><span class="logo-text">EduVerse</span></div>
+      <p>India's premium online learning platform with 2,000+ courses in programming, AI, design, and technology.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+        <a href="#" class="social-link" aria-label="YouTube">📺</a>
+        <a href="#" class="social-link" aria-label="Instagram">📸</a>
+        <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Courses</h4>
+      <ul>
+        <li><a href="courses.html">All Courses</a></li>
+        <li><a href="courses.html?cat=Web+Development">Web Development</a></li>
+        <li><a href="courses.html?cat=Machine+Learning">Machine Learning</a></li>
+        <li><a href="courses.html?cat=UI/UX+Design">UI/UX Design</a></li>
+        <li><a href="courses.html?cat=DevOps">DevOps</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Community</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 EduVerse. All rights reserved.</span>
+    <span>Made with ❤️ for learners worldwide</span>
+    <div style="display:flex;gap:16px;">
+      <a href="#" style="color:var(--text-muted);font-size:0.8rem;">Privacy</a>
+      <a href="#" style="color:var(--text-muted);font-size:0.8rem;">Terms</a>
+      <a href="#" style="color:var(--text-muted);font-size:0.8rem;">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── BACK TO TOP ─── -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<!-- ─── AI CHAT ─── -->
+<button class="ai-chat-toggle" title="Ask AI Assistant">🤖</button>
+<div class="ai-chat-box">
+  <div class="chat-header">
+    <span>🤖</span>
+    <h4>EduVerse AI Assistant</h4>
+    <button class="chat-close">✕</button>
+  </div>
+  <div class="chat-messages">
+    <div class="chat-msg bot">👋 Hi! I'm your EduVerse AI assistant. Ask me anything about courses, pricing, or learning paths!</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" type="text" placeholder="Ask me anything..." />
+    <button class="chat-send">→</button>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCategories('categories-grid');
+    renderCourses('courses-grid', 8);
+    renderInstructors('instructors-grid');
+    renderTestimonials('testimonials-track');
+    renderFAQs('faq-wrapper');
+
+    // Render testimonial dots
+    const dots = document.getElementById('testimonial-dots');
+    if (dots) {
+      TESTIMONIALS.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        dots.appendChild(d);
+      });
+    }
+
+    // Streak display
+    const streak = getStreak();
+    const streakEl = document.querySelector('.hero-tag');
+    if (streakEl && streak > 1) {
+      streakEl.innerHTML = `<div class="hero-tag-dot"></div>🔥 ${streak}-Day Learning Streak!`;
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Details — EduVerse</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .details-page { padding: calc(var(--navbar-height) + 30px) 5% 80px; }
+    .details-grid { display: grid; grid-template-columns: 1fr 380px; gap: 50px; max-width: 1300px; margin: 0 auto; align-items: start; }
+    @media(max-width:900px){.details-grid{grid-template-columns:1fr;}}
+    .course-banner { width:100%; height:320px; border-radius:var(--border-radius-lg); display:flex; align-items:center; justify-content:center; font-size:6rem; margin-bottom:30px; position:relative; overflow:hidden; }
+    .course-banner-overlay { position:absolute;inset:0;background:rgba(0,0,0,0.2); display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px; }
+    .play-big { width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;font-size:1.8rem;cursor:pointer;transition:var(--transition-bounce); }
+    .play-big:hover{transform:scale(1.1);}
+    .breadcrumb{font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    .breadcrumb a{color:var(--primary-light);} .breadcrumb span{color:var(--text-muted);}
+    .tags-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+    .tag{padding:4px 14px;border-radius:100px;background:var(--glass);border:1px solid var(--glass-border);font-size:0.75rem;font-weight:500;}
+    .outcome-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+    @media(max-width:600px){.outcome-list{grid-template-columns:1fr;}}
+    .outcome-item{display:flex;align-items:flex-start;gap:8px;font-size:0.88rem;color:var(--text-secondary);}
+    .outcome-item::before{content:'✅';flex-shrink:0;}
+    .curriculum-item{border:1px solid var(--glass-border);border-radius:var(--border-radius-sm);margin-bottom:8px;overflow:hidden;}
+    .curriculum-header{padding:16px 20px;display:flex;justify-content:space-between;cursor:pointer;background:var(--bg-card);font-weight:600;font-size:0.9rem;transition:var(--transition);}
+    .curriculum-header:hover{color:var(--primary-light);}
+    .curriculum-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;background:rgba(0,0,0,0.1);}
+    .curriculum-item.open .curriculum-body{max-height:500px;}
+    .curriculum-item.open .curr-icon{transform:rotate(180deg);}
+    .curr-icon{transition:transform 0.3s;font-size:0.8rem;}
+    .lecture-item{padding:12px 20px;display:flex;align-items:center;gap:12px;font-size:0.85rem;color:var(--text-secondary);border-bottom:1px solid var(--glass-border);}
+    .lecture-item:last-child{border-bottom:none;}
+    .lecture-icon{font-size:0.9rem;width:20px;text-align:center;}
+    .lecture-duration{margin-left:auto;font-size:0.75rem;color:var(--text-muted);}
+    .rating-bars{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+    .rating-row{display:flex;align-items:center;gap:10px;font-size:0.82rem;}
+    .rating-bar-bg{flex:1;height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;}
+    .rating-bar-fill{height:100%;background:var(--accent-yellow);border-radius:4px;}
+    .review-card{padding:20px;background:var(--bg-card);border:1px solid var(--glass-border);border-radius:var(--border-radius-sm);margin-bottom:14px;}
+    .review-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+    .review-avatar{width:40px;height:40px;border-radius:50%;background:var(--gradient-main);display:flex;align-items:center;justify-content:center;}
+    .sticky-card{position:sticky;top:calc(var(--navbar-height)+20px);background:var(--bg-card);border:1px solid var(--glass-border);border-radius:var(--border-radius-lg);overflow:hidden;box-shadow:var(--shadow-card);}
+    .sticky-thumb{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:5rem;}
+    .sticky-body{padding:24px;}
+    .sticky-price{font-size:2.2rem;font-weight:900;margin-bottom:4px;}
+    .sticky-orig{font-size:0.9rem;color:var(--text-muted);text-decoration:line-through;margin-bottom:4px;}
+    .sticky-discount{display:inline-block;padding:2px 10px;border-radius:100px;background:rgba(236,72,153,0.2);color:var(--accent);font-size:0.8rem;font-weight:700;margin-bottom:20px;}
+    .btn-enroll-big{width:100%;padding:15px;border-radius:var(--border-radius-sm);background:var(--gradient-main);color:white;font-weight:700;font-size:1rem;border:none;cursor:pointer;font-family:var(--font-main);margin-bottom:12px;transition:var(--transition-bounce);}
+    .btn-enroll-big:hover{transform:scale(1.02);box-shadow:var(--shadow-neon);}
+    .btn-wishlist-big{width:100%;padding:14px;border-radius:var(--border-radius-sm);border:1px solid var(--glass-border);background:transparent;color:var(--text-primary);font-weight:600;font-size:0.95rem;cursor:pointer;font-family:var(--font-main);margin-bottom:20px;transition:var(--transition);}
+    .btn-wishlist-big:hover{border-color:var(--accent);color:var(--accent);}
+    .includes-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .includes-list li{font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;}
+    .section-divider-sm{height:1px;background:var(--glass-border);margin:20px 0;}
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo"><span class="gradient-text">EduVerse</span> 🚀</div><div class="loader-bar"><div class="loader-progress"></div></div></div>
+<div id="cursor-spotlight"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><span>🚀</span><span class="logo-text">EduVerse</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="courses.html" class="active">Courses</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle">☀️</button>
+    <a href="dashboard.html"><button class="btn-primary">My Dashboard</button></a>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu"><a href="index.html">🏠 Home</a><a href="courses.html">📚 Courses</a><a href="dashboard.html">📊 Dashboard</a></div>
+
+<div class="details-page" id="details-page">
+  <div class="details-grid" id="details-content">
+    <div class="skeleton" style="height:320px;border-radius:20px;margin-bottom:24px;"></div>
+    <div class="skeleton" style="height:40px;border-radius:8px;margin-bottom:12px;"></div>
+    <div class="skeleton" style="height:20px;border-radius:8px;width:60%;margin-bottom:24px;"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom" style="max-width:1300px;margin:0 auto;padding:30px 0 0;">
+    <span>© 2024 EduVerse. All rights reserved.</span>
+    <span>Made with ❤️ for learners worldwide</span>
+  </div>
+</footer>
+
+<button id="back-to-top">↑</button>
+<button class="ai-chat-toggle" title="Ask AI Assistant">🤖</button>
+<div class="ai-chat-box"><div class="chat-header"><span>🤖</span><h4>EduVerse AI</h4><button class="chat-close">✕</button></div><div class="chat-messages"><div class="chat-msg bot">👋 Hi! Have questions about this course? I'm here to help!</div></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask about this course..." /><button class="chat-send">→</button></div></div>
+
+<script src="js/main.js"></script>
+<script>
+const CURRICULUM = [
+  { section: "Getting Started", lectures: [{ title:"Introduction & Setup", type:"▶️", dur:"05:24" },{ title:"Installing Java JDK", type:"▶️", dur:"08:12" },{ title:"First Java Program", type:"▶️", dur:"12:30" }] },
+  { section: "Java Fundamentals", lectures: [{ title:"Variables & Data Types", type:"▶️", dur:"18:45" },{ title:"Operators & Expressions", type:"▶️", dur:"14:22" },{ title:"Control Flow", type:"▶️", dur:"20:10" },{ title:"Arrays & Strings", type:"▶️", dur:"22:00" }] },
+  { section: "Object-Oriented Programming", lectures: [{ title:"Classes & Objects", type:"▶️", dur:"25:30" },{ title:"Inheritance & Polymorphism", type:"▶️", dur:"28:15" },{ title:"Interfaces & Abstraction", type:"▶️", dur:"22:40" },{ title:"Exception Handling", type:"📝", dur:"15:00" }] },
+  { section: "Advanced Java", lectures: [{ title:"Collections Framework", type:"▶️", dur:"32:00" },{ title:"Streams & Lambdas", type:"▶️", dur:"28:45" },{ title:"Multithreading", type:"▶️", dur:"35:20" },{ title:"Final Project", type:"📝", dur:"60:00" }] }
+];
+
+const REVIEWS = [
+  { name:"Rohan M.", emoji:"👨", rating:5, text:"This is hands down the best Java course I've taken. Dr. Kumar explains complex concepts in a way that's easy to understand. The projects are practical and real-world.", date:"2 weeks ago" },
+  { name:"Sneha R.", emoji:"👩", rating:5, text:"Absolutely worth every rupee! I went from a complete beginner to building Spring Boot APIs in 3 months. The course material is very comprehensive.", date:"1 month ago" },
+  { name:"Arjun K.", emoji:"🧑", rating:4, text:"Great course overall. Some sections could be more concise but the depth of coverage is impressive. The doubt sessions are extremely helpful.", date:"1 month ago" }
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get('id')) || 1;
+  const course = COURSES.find(c => c.id === id) || COURSES[0];
+  const discount = Math.round((1 - course.price/course.originalPrice)*100);
+
+  const container = document.getElementById('details-content');
+  container.innerHTML = `
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>›</span>
+        <a href="courses.html">Courses</a> <span>›</span>
+        <a href="courses.html?cat=${encodeURIComponent(course.category)}">${course.category}</a> <span>›</span>
+        <span>${course.title}</span>
+      </div>
+      <div class="course-banner reveal" style="background:linear-gradient(135deg,${course.color}44,${course.color}22);">
+        <span style="font-size:6rem;">${course.emoji}</span>
+        <div class="course-banner-overlay">
+          <div class="play-big" onclick="showToast('▶ Preview playing...')">▶</div>
+          <span style="color:white;font-size:0.85rem;font-weight:600;">Preview this course</span>
+        </div>
+      </div>
+
+      <div class="tags-row reveal">
+        ${(course.tags||[]).map(t => `<span class="tag">${t}</span>`).join('')}
+        <span class="tag">📊 ${course.level}</span>
+        <span class="tag">⏱ ${course.hours}h total</span>
+      </div>
+
+      <h1 class="reveal" style="font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:12px;">${course.title}</h1>
+      <p class="reveal" style="font-size:1rem;margin-bottom:16px;">${course.description}</p>
+
+      <div class="reveal" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="color:#f59e0b;font-size:1.1rem;">${'★'.repeat(Math.floor(course.rating))}</span>
+          <strong>${course.rating}</strong>
+          <span style="color:var(--text-muted);font-size:0.85rem;">(${(course.students/1000).toFixed(1)}k ratings)</span>
+        </div>
+        <span style="color:var(--text-muted);font-size:0.85rem;">👥 ${course.students.toLocaleString()} students</span>
+        <span style="color:var(--text-muted);font-size:0.85rem;">📝 ${course.lectures} lectures</span>
+        <span style="color:var(--text-muted);font-size:0.85rem;">🌐 English</span>
+      </div>
+
+      <div class="reveal" style="display:flex;align-items:center;gap:10px;margin-bottom:30px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--gradient-main);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">${course.instructorEmoji}</div>
+        <span style="font-size:0.9rem;">Instructor: <a href="#" style="color:var(--primary-light);font-weight:600;">${course.instructor}</a></span>
+      </div>
+
+      <!-- What You'll Learn -->
+      <div class="reveal" style="background:var(--bg-card);border:1px solid var(--glass-border);border-radius:var(--border-radius);padding:28px;margin-bottom:30px;">
+        <h2 style="font-size:1.3rem;margin-bottom:8px;">What You'll Learn</h2>
+        <ul class="outcome-list">
+          <li class="outcome-item">Core Java programming fundamentals</li>
+          <li class="outcome-item">Object-Oriented Programming principles</li>
+          <li class="outcome-item">Data structures with Java Collections</li>
+          <li class="outcome-item">Functional programming with Streams & Lambdas</li>
+          <li class="outcome-item">Exception handling and debugging</li>
+          <li class="outcome-item">Multithreading and concurrency</li>
+          <li class="outcome-item">Build 5 real-world portfolio projects</li>
+          <li class="outcome-item">Prepare for Java coding interviews</li>
+        </ul>
+      </div>
+
+      <!-- Curriculum -->
+      <div class="reveal" style="margin-bottom:30px;">
+        <h2 style="font-size:1.3rem;margin-bottom:16px;">Course Curriculum</h2>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:16px;">${course.lectures} lectures · ${course.hours} hours total</p>
+        ${CURRICULUM.map((sec, si) => `
+          <div class="curriculum-item ${si === 0 ? 'open' : ''}">
+            <div class="curriculum-header" onclick="this.parentElement.classList.toggle('open')">
+              <span>📂 ${sec.section}</span>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span style="font-size:0.75rem;color:var(--text-muted);">${sec.lectures.length} lectures</span>
+                <span class="curr-icon">▼</span>
+              </div>
+            </div>
+            <div class="curriculum-body">
+              ${sec.lectures.map(l => `
+                <div class="lecture-item">
+                  <span class="lecture-icon">${l.type}</span>
+                  <span>${l.title}</span>
+                  <span class="lecture-duration">${l.dur}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Ratings Breakdown -->
+      <div class="reveal" style="margin-bottom:30px;">
+        <h2 style="font-size:1.3rem;margin-bottom:16px;">Student Reviews</h2>
+        <div style="display:flex;gap:30px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
+          <div style="text-align:center;">
+            <div style="font-size:5rem;font-weight:900;line-height:1;" class="gradient-text">${course.rating}</div>
+            <div style="color:#f59e0b;font-size:1.5rem;">${'★'.repeat(Math.floor(course.rating))}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">Course Rating</div>
+          </div>
+          <div class="rating-bars" style="flex:1;">
+            ${[5,4,3,2,1].map(r => {
+              const pct = r===5?70:r===4?20:r===3?7:r===2?2:1;
+              return `<div class="rating-row">
+                <span style="white-space:nowrap;color:#f59e0b;">${'★'.repeat(r)}</span>
+                <div class="rating-bar-bg"><div class="rating-bar-fill" style="width:${pct}%"></div></div>
+                <span style="color:var(--text-muted);width:30px;text-align:right;">${pct}%</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+        ${REVIEWS.map(rv => `
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">${rv.emoji}</div>
+              <div>
+                <strong style="font-size:0.9rem;">${rv.name}</strong>
+                <div style="color:#f59e0b;font-size:0.8rem;">${'★'.repeat(rv.rating)}</div>
+              </div>
+              <span style="margin-left:auto;font-size:0.75rem;color:var(--text-muted);">${rv.date}</span>
+            </div>
+            <p style="font-size:0.87rem;color:var(--text-secondary);">${rv.text}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Related Courses -->
+      <div class="reveal" style="margin-bottom:30px;">
+        <h2 style="font-size:1.3rem;margin-bottom:20px;">Related Courses</h2>
+        <div class="courses-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+          ${COURSES.filter(c => c.id !== course.id && c.category === course.category).slice(0,3).map((c,i) => getCourseCardHTML(c,i)).join('')
+          || COURSES.filter(c => c.id !== course.id).slice(0,3).map((c,i) => getCourseCardHTML(c,i)).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Card -->
+    <div>
+      <div class="sticky-card">
+        <div class="sticky-thumb" style="background:linear-gradient(135deg,${course.color}44,${course.color}22);">${course.emoji}</div>
+        <div class="sticky-body">
+          <div class="sticky-price gradient-text">₹${course.price.toLocaleString()}</div>
+          <div class="sticky-orig">₹${course.originalPrice.toLocaleString()}</div>
+          <span class="sticky-discount">${discount}% OFF — Limited Time!</span>
+          <div style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--accent);margin-bottom:16px;">⏰ Offer ends in: <span id="countdown">2:47:33</span></div>
+          <button class="btn-enroll-big" onclick="enrollCourse(${course.id});showToast('🎉 Enrolled successfully!')">🚀 Enroll Now</button>
+          <button class="btn-wishlist-big" onclick="toggleWishlist(${course.id})">🤍 Add to Wishlist</button>
+          <p style="text-align:center;font-size:0.75rem;color:var(--text-muted);margin-bottom:16px;">30-Day Money-Back Guarantee</p>
+          <div class="section-divider-sm"></div>
+          <h4 style="font-size:0.88rem;margin-bottom:12px;">This course includes:</h4>
+          <ul class="includes-list">
+            <li>📹 ${course.hours} hours on-demand video</li>
+            <li>📝 ${course.lectures} downloadable resources</li>
+            <li>📱 Access on mobile & desktop</li>
+            <li>🔄 Full lifetime access</li>
+            <li>🏆 Certificate of completion</li>
+            <li>💬 Community Q&A support</li>
+            <li>⚡ Live doubt-clearing sessions</li>
+          </ul>
+          <div class="section-divider-sm"></div>
+          <div style="display:flex;justify-content:center;gap:16px;">
+            <button onclick="showToast('🔗 Link copied!')" style="background:none;border:none;cursor:pointer;font-size:0.82rem;color:var(--primary-light);">🔗 Share</button>
+            <button onclick="showToast('🎁 Coupon applied!')" style="background:none;border:none;cursor:pointer;font-size:0.82rem;color:var(--primary-light);">🎟 Apply Coupon</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Countdown timer
+  let secs = 9973;
+  setInterval(() => {
+    secs--;
+    const h = Math.floor(secs/3600), m = Math.floor((secs%3600)/60), s = secs%60;
+    const el = document.getElementById('countdown');
+    if (el) el.textContent = `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }, 1000);
+
+  initScrollReveal();
+  initTilt();
+});
+</script>
+</body>
+</html>

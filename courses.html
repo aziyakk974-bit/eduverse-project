@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Courses | EduVerse</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <style>
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .courses-page {
+      padding: 120px 5% 80px;
+    }
+
+    .courses-hero {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .courses-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    .courses-hero p {
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       COURSE SECTION
+    ========================= */
+
+    .course-section {
+      margin-bottom: 80px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-heading h2 {
+      font-size: 2rem;
+    }
+
+    .section-heading span {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    /* =========================
+       COURSE CARD
+    ========================= */
+
+    .course-card {
+      background: var(--bg-card);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: 0.4s ease;
+      position: relative;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .course-image {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+
+    .course-content {
+      padding: 22px;
+    }
+
+    .course-tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .course-title {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .course-desc {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 0.92rem;
+    }
+
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+    }
+
+    .course-rating {
+      color: #facc15;
+      font-weight: 600;
+    }
+
+    .course-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .course-price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .course-btn {
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    .course-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media(max-width:768px) {
+
+      .courses-hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .section-heading h2 {
+        font-size: 1.5rem;
+      }
+
+      .course-image {
+        height: 150px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <a href="index.html" class="nav-logo">
+      🚀 EduVerse
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html" class="active">Courses</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="courses-page">
+
+    <div class="courses-hero">
+
+      <span class="section-tag">
+        2,000+ Premium Courses
+      </span>
+
+      <h1>
+        Explore Our
+        <span class="gradient-text">Top Courses</span>
+      </h1>
+
+      <p>
+        Learn trending technologies from industry experts.
+        Build projects, earn certificates and level up your career.
+      </p>
+
+    </div>
+
+    <!-- =========================
+         WEB DEVELOPMENT
+    ========================= -->
+
+    <div class="course-section">
+
+      <div class="section-heading">
+        <h2>🌐 Web Development</h2>
+        <span>12 Courses</span>
+      </div>
+
+      <div class="courses-grid">
+
+        <div class="course-card">
+
+          <span class="badge">Best Seller</span>
+
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Frontend + Backend</span>
+
+            <h3 class="course-title">
+              Full Stack Web Development
+            </h3>
+
+            <p class="course-desc">
+              Learn HTML, CSS, JavaScript, React, Node.js and MongoDB.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span>18k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹2,999</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">React.js</span>
+
+            <h3 class="course-title">
+              React Developer Bootcamp
+            </h3>
+
+            <p class="course-desc">
+              Build responsive modern applications using React.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.8</span>
+              <span>10k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹2,499</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">JavaScript</span>
+
+            <h3 class="course-title">
+              Advanced JavaScript
+            </h3>
+
+            <p class="course-desc">
+              Master ES6, DOM manipulation and asynchronous JS.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.7</span>
+              <span>8k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹1,999</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Responsive Design</span>
+
+            <h3 class="course-title">
+              Responsive Website Design
+            </h3>
+
+            <p class="course-desc">
+              Build beautiful mobile-friendly responsive websites.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.6</span>
+              <span>6k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹1,499</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =========================
+         JAVA SECTION
+    ========================= -->
+
+    <div class="course-section">
+
+      <div class="section-heading">
+        <h2>☕ Java Programming</h2>
+        <span>8 Courses</span>
+      </div>
+
+      <div class="courses-grid">
+
+        <div class="course-card">
+
+          <span class="badge">Trending</span>
+
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Java + OOP</span>
+
+            <h3 class="course-title">
+              Java Masterclass
+            </h3>
+
+            <p class="course-desc">
+              Learn Java fundamentals and object-oriented programming.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.8</span>
+              <span>12k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹2,799</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">DSA</span>
+
+            <h3 class="course-title">
+              Java DSA Complete
+            </h3>
+
+            <p class="course-desc">
+              Crack coding interviews using Java-based DSA concepts.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.7</span>
+              <span>9k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹2,299</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Spring Boot</span>
+
+            <h3 class="course-title">
+              Spring Boot API Development
+            </h3>
+
+            <p class="course-desc">
+              Build enterprise backend APIs with Spring Boot.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span>7k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹3,199</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Projects</span>
+
+            <h3 class="course-title">
+              Java Project Development
+            </h3>
+
+            <p class="course-desc">
+              Create mini and major projects with database integration.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.6</span>
+              <span>5k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹1,999</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =========================
+         AI / ML SECTION
+    ========================= -->
+
+    <div class="course-section">
+
+      <div class="section-heading">
+        <h2>🤖 Machine Learning & AI</h2>
+        <span>15 Courses</span>
+      </div>
+
+      <div class="courses-grid">
+
+        <div class="course-card">
+
+          <span class="badge">Hot</span>
+
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Python + AI</span>
+
+            <h3 class="course-title">
+              Machine Learning A-Z
+            </h3>
+
+            <p class="course-desc">
+              Learn AI, deep learning and TensorFlow projects.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span>21k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹4,999</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Data Science</span>
+
+            <h3 class="course-title">
+              Python for Data Science
+            </h3>
+
+            <p class="course-desc">
+              Learn Pandas, NumPy and data visualization techniques.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.8</span>
+              <span>13k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹3,499</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Deep Learning</span>
+
+            <h3 class="course-title">
+              Neural Networks Mastery
+            </h3>
+
+            <p class="course-desc">
+              Understand CNNs, RNNs and neural networks deeply.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.7</span>
+              <span>11k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹4,299</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="course-card">
+
+          <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a"
+            class="course-image">
+
+          <div class="course-content">
+
+            <span class="course-tag">Chatbots</span>
+
+            <h3 class="course-title">
+              AI Chatbot Development
+            </h3>
+
+            <p class="course-desc">
+              Build intelligent chatbots using NLP and AI APIs.
+            </p>
+
+            <div class="course-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span>9k Students</span>
+            </div>
+
+            <div class="course-footer">
+              <span class="course-price">₹5,499</span>
+              <button class="course-btn">Enroll</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-bottom"
+      style="max-width:1300px;margin:auto;padding-top:40px;">
+
+      <span>
+        © 2026 EduVerse. All rights reserved.
+      </span>
+
+    </div>
+
+  </footer>
+
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

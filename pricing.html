@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — EduVerse</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <style>
+    .pricing-page { padding: calc(var(--navbar-height) + 60px) 5% 80px; }
+    .pricing-toggle {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-bottom: 60px;
+    }
+    .toggle-label { font-weight: 600; font-size: 0.95rem; transition: var(--transition); }
+    .toggle-label.inactive { color: var(--text-muted); }
+    .toggle-switch {
+      width: 56px; height: 28px; border-radius: 100px;
+      background: var(--gradient-main); cursor: pointer;
+      position: relative; transition: var(--transition);
+    }
+    .toggle-knob {
+      position: absolute; top: 3px; left: 3px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: white; transition: transform 0.3s ease;
+    }
+    .toggle-switch.yearly .toggle-knob { transform: translateX(28px); }
+    .save-badge {
+      padding: 3px 10px; border-radius: 100px;
+      background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3);
+      color: #22c55e; font-size: 0.75rem; font-weight: 700;
+    }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 24px; max-width: 1100px; margin: 0 auto 80px;
+    }
+    @media(max-width:900px){.pricing-grid{grid-template-columns:1fr;max-width:440px;}}
+    .pricing-card {
+      background: var(--bg-card); border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg); padding: 36px 32px;
+      position: relative; transition: var(--transition-bounce);
+      display: flex; flex-direction: column;
+    }
+    .pricing-card:hover { transform: translateY(-8px); }
+    .pricing-card.popular {
+      border-color: var(--primary); background: linear-gradient(135deg,rgba(124,58,237,0.12),rgba(6,182,212,0.08));
+      transform: scale(1.04);
+    }
+    .pricing-card.popular:hover { transform: scale(1.04) translateY(-8px); box-shadow: var(--shadow-neon); }
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      padding: 6px 20px; border-radius: 100px;
+      background: var(--gradient-main); color: white;
+      font-size: 0.75rem; font-weight: 700; white-space: nowrap;
+    }
+    .plan-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .plan-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; }
+    .plan-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; min-height: 40px; }
+    .plan-price { font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+    .plan-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 8px; }
+    .plan-period { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 28px; }
+    .plan-features { list-style: none; margin-bottom: 32px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .plan-feature { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; }
+    .plan-feature .feat-icon { font-size: 0.9rem; flex-shrink: 0; }
+    .plan-feature.disabled { opacity: 0.4; }
+    .btn-plan {
+      width: 100%; padding: 14px; border-radius: var(--border-radius-sm);
+      font-family: var(--font-main); font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; transition: var(--transition-bounce);
+    }
+    .btn-plan-primary { background: var(--gradient-main); color: white; border: none; }
+    .btn-plan-primary:hover { box-shadow: var(--shadow-neon); transform: scale(1.02); }
+    .btn-plan-ghost { background: transparent; border: 1px solid var(--glass-border); color: var(--text-primary); }
+    .btn-plan-ghost:hover { border-color: var(--primary); color: var(--primary-light); }
+
+    /* Comparison Table */
+    .comparison-section { max-width: 1000px; margin: 0 auto 80px; }
+    .comparison-table { width: 100%; border-collapse: collapse; }
+    .comparison-table th, .comparison-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--glass-border); font-size: 0.875rem; }
+    .comparison-table th { background: var(--glass); font-weight: 700; color: var(--text-secondary); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .comparison-table th:first-child { border-radius: var(--border-radius-sm) 0 0 0; }
+    .comparison-table th:last-child { border-radius: 0 var(--border-radius-sm) 0 0; }
+    .comparison-table td:nth-child(3) { background: rgba(124,58,237,0.05); }
+    .comparison-table th:nth-child(3) { background: rgba(124,58,237,0.15); color: var(--primary-light); }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .check { color: #22c55e; font-size: 1.1rem; }
+    .cross { color: var(--text-muted); font-size: 1.1rem; }
+    .feat-name { font-weight: 500; }
+
+    /* FAQ Section */
+    .pricing-faq { max-width: 750px; margin: 0 auto; }
+
+    /* Trust Badges */
+    .trust-section { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-bottom: 70px; }
+    .trust-item { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; color: var(--text-secondary); }
+    .trust-icon { font-size: 1.4rem; }
+  </style>
+</head>
+<body>
+<div id="loader"><div class="loader-logo"><span class="gradient-text">EduVerse</span> 🚀</div><div class="loader-bar"><div class="loader-progress"></div></div></div>
+<div id="cursor-spotlight"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><span>🚀</span><span class="logo-text">EduVerse</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="courses.html">Courses</a></li><li><a href="dashboard.html">Dashboard</a></li><li><a href="pricing.html" class="active">Pricing</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-toggle">☀️</button>
+    <a href="dashboard.html"><button class="btn-primary">My Dashboard</button></a>
+    <button class="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu"><a href="index.html">🏠 Home</a><a href="courses.html">📚 Courses</a><a href="dashboard.html">📊 Dashboard</a><a href="pricing.html">💎 Pricing</a></div>
+
+<div class="pricing-page">
+  <div class="section-header reveal" style="margin-bottom:40px;">
+    <span class="section-tag">Simple Pricing</span>
+    <h1 class="section-title">Choose Your <span class="gradient-text">Learning Plan</span></h1>
+    <p class="section-sub">Start free, upgrade anytime. No hidden fees, cancel anytime.</p>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- Toggle -->
+  <div class="pricing-toggle reveal">
+    <span class="toggle-label" id="monthly-label">Monthly</span>
+    <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()">
+      <div class="toggle-knob"></div>
+    </div>
+    <span class="toggle-label inactive" id="yearly-label">Yearly</span>
+    <span class="save-badge">Save 40%</span>
+  </div>
+
+  <!-- Plans -->
+  <div class="pricing-grid reveal">
+    <!-- Free -->
+    <div class="pricing-card">
+      <div class="plan-icon">🎓</div>
+      <div class="plan-name">Free</div>
+      <div class="plan-desc">Perfect for exploring and getting started with online learning.</div>
+      <div class="plan-price"><sup>₹</sup><span class="price-val" data-monthly="0" data-yearly="0">0</span></div>
+      <div class="plan-period">Forever free</div>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="feat-icon">✅</span> Access to 50+ free courses</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Community Q&A forum</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Course completion badge</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Mobile app access</li>
+        <li class="plan-feature disabled"><span class="feat-icon">❌</span> Downloadable certificates</li>
+        <li class="plan-feature disabled"><span class="feat-icon">❌</span> Offline downloads</li>
+        <li class="plan-feature disabled"><span class="feat-icon">❌</span> Live sessions access</li>
+        <li class="plan-feature disabled"><span class="feat-icon">❌</span> Priority support</li>
+      </ul>
+      <button class="btn-plan btn-plan-ghost" onclick="showToast('✅ You are on the Free plan!')">Current Plan</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="pricing-card popular">
+      <div class="popular-badge">⭐ Most Popular</div>
+      <div class="plan-icon">🚀</div>
+      <div class="plan-name">Pro</div>
+      <div class="plan-desc">Best for serious learners who want full access and certificates.</div>
+      <div class="plan-price"><sup>₹</sup><span class="price-val" data-monthly="999" data-yearly="599">999</span></div>
+      <div class="plan-period price-period">per month</div>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="feat-icon">✅</span> Access to all 2,000+ courses</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Downloadable certificates</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Offline video downloads</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Live doubt-clearing sessions</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Priority email support</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Course completion certificate</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Ad-free experience</li>
+        <li class="plan-feature disabled"><span class="feat-icon">❌</span> 1-on-1 mentorship</li>
+      </ul>
+      <button class="btn-plan btn-plan-primary" onclick="showToast('🚀 Redirecting to payment...')">Start Pro — 7 Days Free</button>
+    </div>
+
+    <!-- Premium -->
+    <div class="pricing-card">
+      <div class="plan-icon">💎</div>
+      <div class="plan-name">Premium</div>
+      <div class="plan-desc">For career-focused learners who want mentorship and placement support.</div>
+      <div class="plan-price"><sup>₹</sup><span class="price-val" data-monthly="2499" data-yearly="1499">2499</span></div>
+      <div class="plan-period price-period">per month</div>
+      <ul class="plan-features">
+        <li class="plan-feature"><span class="feat-icon">✅</span> Everything in Pro</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> 1-on-1 mentorship sessions</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Resume review & feedback</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Mock interview preparation</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Job placement assistance</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Dedicated success manager</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> LinkedIn profile review</li>
+        <li class="plan-feature"><span class="feat-icon">✅</span> Early access to new courses</li>
+      </ul>
+      <button class="btn-plan btn-plan-ghost" onclick="showToast('💎 Redirecting to Premium checkout...')">Get Premium</button>
+    </div>
+  </div>
+
+  <!-- Trust Badges -->
+  <div class="trust-section reveal">
+    <div class="trust-item"><span class="trust-icon">🔒</span> Secure Payment (SSL)</div>
+    <div class="trust-item"><span class="trust-icon">↩️</span> 30-Day Money-Back Guarantee</div>
+    <div class="trust-item"><span class="trust-icon">❌</span> Cancel Anytime</div>
+    <div class="trust-item"><span class="trust-icon">🌐</span> Access on All Devices</div>
+    <div class="trust-item"><span class="trust-icon">🔄</span> Auto-renews, Easy to Cancel</div>
+  </div>
+
+  <!-- Comparison Table -->
+  <div class="comparison-section reveal">
+    <div class="section-header" style="margin-bottom:32px;">
+      <h2 class="section-title">Feature <span class="gradient-text">Comparison</span></h2>
+    </div>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Free</th>
+          <th>Pro 🚀</th>
+          <th>Premium 💎</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="feat-name">Number of Courses</td><td>50+</td><td>2,000+</td><td>2,000+</td></tr>
+        <tr><td class="feat-name">Completion Certificates</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Offline Downloads</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Live Sessions</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Priority Support</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">1-on-1 Mentorship</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Placement Support</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Resume Review</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Mock Interviews</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td class="feat-name">Ad-Free Experience</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FAQ -->
+  <div class="pricing-faq reveal">
+    <div class="section-header" style="margin-bottom:32px;">
+      <h2 class="section-title">Pricing <span class="gradient-text">FAQs</span></h2>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><span>Can I switch plans anytime?</span><span class="faq-icon">+</span></div>
+      <div class="faq-answer"><p>Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><span>Is there a free trial for Pro?</span><span class="faq-icon">+</span></div>
+      <div class="faq-answer"><p>Absolutely! Pro plan comes with a 7-day free trial. No credit card required to start. Cancel anytime during the trial.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><span>What payment methods are accepted?</span><span class="faq-icon">+</span></div>
+      <div class="faq-answer"><p>We accept all major credit/debit cards (Visa, Mastercard, RuPay), UPI, Net Banking, and wallets (Paytm, PhonePe). All payments are secured by 256-bit SSL.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question"><span>Do you offer student or group discounts?</span><span class="faq-icon">+</span></div>
+      <div class="faq-answer"><p>Yes! Students with a valid .edu email get 30% off. For teams of 5+, contact us for custom pricing with team analytics and admin dashboards.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer style="margin-top:60px;">
+  <div class="footer-bottom" style="max-width:1300px;margin:0 auto;padding:30px 0 0;">
+    <span>© 2024 EduVerse. All rights reserved.</span>
+    <span>Made with ❤️ for learners worldwide</span>
+  </div>
+</footer>
+<button id="back-to-top">↑</button>
+<button class="ai-chat-toggle">🤖</button>
+<div class="ai-chat-box"><div class="chat-header"><span>🤖</span><h4>EduVerse AI</h4><button class="chat-close">✕</button></div><div class="chat-messages"><div class="chat-msg bot">💎 Have questions about our plans? I can help you choose the right one!</div></div><div class="chat-input-row"><input class="chat-input" type="text" placeholder="Ask about pricing..." /><button class="chat-send">→</button></div></div>
+
+<script src="js/main.js"></script>
+<script>
+let isYearly = false;
+function toggleBilling() {
+  isYearly = !isYearly;
+  const toggle = document.getElementById('billing-toggle');
+  const monthLabel = document.getElementById('monthly-label');
+  const yearLabel = document.getElementById('yearly-label');
+  toggle.classList.toggle('yearly', isYearly);
+  monthLabel.classList.toggle('inactive', isYearly);
+  yearLabel.classList.toggle('inactive', !isYearly);
+
+  document.querySelectorAll('.price-val').forEach(el => {
+    const val = isYearly ? el.dataset.yearly : el.dataset.monthly;
+    el.textContent = parseInt(val).toLocaleString();
+  });
+  document.querySelectorAll('.price-period').forEach(el => {
+    el.textContent = isYearly ? 'per month, billed yearly' : 'per month';
+  });
+  if (isYearly) showToast('🎉 Yearly plan selected — Save 40%!');
+}
+document.addEventListener('DOMContentLoaded', initFAQ);
+</script>
+</body>
+</html>
